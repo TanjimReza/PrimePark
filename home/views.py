@@ -9,3 +9,7 @@ def login(request):
 
 def dashboard(request):
     return render(request, 'home/dashboard.html')
+def createslot(request):
+    if request.method == 'POST':
+        print(request.POST)
+    return render(request, 'home/createslot.html')
