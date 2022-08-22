@@ -33,3 +33,52 @@ class Users(AbstractBaseUser):
     def __str__(self):
         return self.nid
 
+class SpotOwner(models.Model):
+    user = models.OneToOneField(Users, on_delete=models.CASCADE)
+    balance = models.IntegerField(default=0)
+    spot_ids = models.ManyToManyField('Spot', blank=True)
+
+    def __str__(self):
+        return self.user.nid
+
+
+class Rentee(models.Model):
+    user = models.OneToOneField(Users, on_delete=models.CASCADE)
+    rentee_balance = models.IntegerField(default=0)
+    rentee_spot_ids = models.ManyToManyField('Spot', blank=True)
+    rentee_transactions = models.ManyToManyField('RenteeTransaction', blank=True)
+
+    def __str__(self):
+        return self.user.nid
+
+class Drivers(models.Model):
+    user = models.OneToOneField(Users, on_delete=models.CASCADE)
+    driver_phone = models.IntegerField(default=0)
+    driver_id = models.CharField("driver_id",max_length=30, unique=True, primary_key=True)
+    
+class Spot(models.Model):
+    spot_id = models.CharField("spot_id",max_length=30, unique=True, primary_key=True)
+    spot_name = models.CharField("spot_name",max_length=200)
+    spot_road_no = models.CharField("spot_road_no",max_length=200)
+    spot_area = models.CharField("spot_area",max_length=200)
+    spot_house_no = models.CharField("spot_house_no",max_length=200)
+    spot_city = models.CharField("spot_city",max_length=200)
+    spot_owner = models.ForeignKey(SpotOwner, on_delete=models.CASCADE)
+    spot_reviews = models.ManyToManyField('Review', blank=True)
+    spot_timings = models.ManyToManyField('Timing', blank=True)
+    def __str__(self):
+        return self.spot_id
+class Review(models.Model):
+    review_id = models.CharField("review_id",max_length=30, unique=True, primary_key=True)
+    review_text = models.CharField("review_text",max_length=200)
+    review_rating = models.IntegerField("review_rating",default=0)
+    review_date = models.DateTimeField("review_date", auto_now_add=True, null=True)
+    review_user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    review_spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.review_id
+
+
+class RenteeTransaction(models.Model):
+    transaction_id = models.CharField("transaction_id",max_length=30, unique=True, primary_key=True)
+    transaction_date = models.DateTimeField("transaction_date", auto_now_add=True, null=True)
