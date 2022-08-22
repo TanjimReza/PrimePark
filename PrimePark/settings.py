@@ -81,22 +81,22 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'primepark',
-    #     'USER': 'root',
-    #     'PASSWORD': '',
-    #     'HOST': 'localhost',
-    #     'PORT': '3306',
-    # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tanjimre_primepark',
-        'USER': 'tanjimre_primeparkuser',
-        'PASSWORD': 'cff70978c4053',
-        'HOST': 'server-arizona-vps.quattic.com',
-        # 'PORT': '3306',
+        'NAME': 'primepark',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'tanjimre_primepark',
+    #     'USER': 'tanjimre_primeparkuser',
+    #     'PASSWORD': 'cff70978c4053',
+    #     'HOST': 'server-arizona-vps.quattic.com',
+    #     # 'PORT': '3306',
+    # }
     }
 
 
@@ -142,3 +142,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#!! ADDED BY ME 
+
+AUTH_USER_MODEL = 'home.Users'
+
