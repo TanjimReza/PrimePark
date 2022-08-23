@@ -1,1 +1,78 @@
-document.querySelector("#profile-img-file-input").addEventListener("change",function(){var e=document.querySelector(".user-profile-image"),t=document.querySelector(".profile-img-file-input").files[0],o=new FileReader;o.addEventListener("load",function(){e.src=o.result},!1),t&&o.readAsDataURL(t)}),document.querySelectorAll(".form-steps").forEach(function(n){n.querySelectorAll(".nexttab").forEach(function(t){n.querySelectorAll('button[data-bs-toggle="pill"]').forEach(function(e){e.addEventListener("show.bs.tab",function(e){e.target.classList.add("done")})}),t.addEventListener("click",function(){var e=t.getAttribute("data-nexttab");document.getElementById(e).click()})}),n.querySelectorAll(".previestab").forEach(function(r){r.addEventListener("click",function(){for(var e=r.getAttribute("data-previous"),t=r.closest("form").querySelectorAll(".custom-nav .done").length,o=t-1;o<t;o++)r.closest("form").querySelectorAll(".custom-nav .done")[o]&&r.closest("form").querySelectorAll(".custom-nav .done")[o].classList.remove("done");document.getElementById(e).click()})});var l=n.querySelectorAll('button[data-bs-toggle="pill"]');l.forEach(function(o,r){o.setAttribute("data-position",r),o.addEventListener("click",function(){var e;o.getAttribute("data-progressbar")&&(e=document.getElementById("custom-progress-bar").querySelectorAll("li").length-1,e=r/e*100,document.getElementById("custom-progress-bar").querySelector(".progress-bar").style.width=e+"%"),0<n.querySelectorAll(".custom-nav .done").length&&n.querySelectorAll(".custom-nav .done").forEach(function(e){e.classList.remove("done")});for(var t=0;t<=r;t++)l[t].classList.contains("active")?l[t].classList.remove("done"):l[t].classList.add("done")})})});
+/*
+Template Name: Velzon - Admin & Dashboard Template
+Author: Themesbrand
+Website: https://Themesbrand.com/
+Contact: Themesbrand@gmail.com
+File: Form wizard Js File
+*/
+
+// user profile img file upload
+if (document.querySelector("#profile-img-file-input"))
+    document.querySelector("#profile-img-file-input").addEventListener("change", function () {
+        var preview = document.querySelector(".user-profile-image");
+        var file = document.querySelector(".profile-img-file-input").files[0];
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+        }, false);
+
+        if (file)
+            reader.readAsDataURL(file);
+    });
+
+if (document.querySelectorAll(".form-steps"))
+    document.querySelectorAll(".form-steps").forEach(function (form) {
+
+        // next tab
+        if (form.querySelectorAll(".nexttab"))
+            form.querySelectorAll(".nexttab").forEach(function (nextButton) {
+                var tabEl = form.querySelectorAll('button[data-bs-toggle="pill"]');
+                tabEl.forEach(function (item) {
+                    item.addEventListener('show.bs.tab', function (event) {
+                        event.target.classList.add('done');
+                    });
+                });
+                nextButton.addEventListener("click", function () {
+                    var nextTab = nextButton.getAttribute('data-nexttab');
+                    document.getElementById(nextTab).click();
+                });
+            });
+
+        //Pervies tab
+        if (form.querySelectorAll(".previestab"))
+            form.querySelectorAll(".previestab").forEach(function (prevButton) {
+
+                prevButton.addEventListener("click", function () {
+                    var prevTab = prevButton.getAttribute('data-previous');
+                    var totalDone = prevButton.closest("form").querySelectorAll(".custom-nav .done").length;
+                    for (var i = totalDone - 1; i < totalDone; i++) {
+                        (prevButton.closest("form").querySelectorAll(".custom-nav .done")[i]) ? prevButton.closest("form").querySelectorAll(".custom-nav .done")[i].classList.remove('done'): '';
+                    }
+                    document.getElementById(prevTab).click();
+                });
+            });
+
+        // Step number click
+        var tabButtons = form.querySelectorAll('button[data-bs-toggle="pill"]');
+        if (tabButtons)
+            tabButtons.forEach(function (button, i) {
+                button.setAttribute("data-position", i);
+                button.addEventListener("click", function () {
+                    var getProgressBar = button.getAttribute("data-progressbar");
+                    if (getProgressBar) {
+                        var totalLength = document.getElementById("custom-progress-bar").querySelectorAll("li").length - 1;
+                        var current = i;
+                        var percent = (current / totalLength) * 100;
+                        document.getElementById("custom-progress-bar").querySelector('.progress-bar').style.width = percent + "%";
+                    }
+                    (form.querySelectorAll(".custom-nav .done").length > 0) ?
+                    form.querySelectorAll(".custom-nav .done").forEach(function (doneTab) {
+                        doneTab.classList.remove('done');
+                    }): '';
+                    for (var j = 0; j <= i; j++) {
+                        tabButtons[j].classList.contains('active') ? tabButtons[j].classList.remove('done') : tabButtons[j].classList.add('done');
+                    }
+                });
+            });
+    });

@@ -1,1 +1,151 @@
-function windowScroll(){var e=document.getElementById("navbar");50<=document.body.scrollTop||50<=document.documentElement.scrollTop?e.classList.add("is-sticky"):e.classList.remove("is-sticky")}window.addEventListener("scroll",function(e){e.preventDefault(),windowScroll()});const navLinks=document.querySelectorAll(".nav-item"),menuToggle=document.getElementById("navbarSupportedContent");let bsCollapse="";function toggleMenu(){document.documentElement.clientWidth<980?bsCollapse.toggle():bsCollapse=""}window.addEventListener("load",function(){window.dispatchEvent(new Event("resize"))}),window.addEventListener("resize",function(){var e=document.documentElement.clientWidth;bsCollapse=new bootstrap.Collapse(menuToggle,{toggle:!1}),e<980?navLinks.forEach(e=>{e.addEventListener("click",()=>{toggleMenu()})}):toggleMenu()});var swiper=new Swiper(".trusted-client-slider",{spaceBetween:30,loop:"true",slidesPerView:1,autoplay:{delay:1e3,disableOnInteraction:!1},breakpoints:{576:{slidesPerView:2},768:{slidesPerView:3},1024:{slidesPerView:4}}});function check(){for(var e=document.getElementById("plan-switch"),n=document.getElementsByClassName("month"),t=document.getElementsByClassName("annual"),o=0;o<n.length;o++)1==e.checked?(t[o].style.display="block",n[o].style.display="none"):0==e.checked&&(t[o].style.display="none",n[o].style.display="block")}check();swiper=new Swiper(".client-review-swiper",{loop:!1,autoplay:{delay:2500,disableOnInteraction:!1},navigation:{nextEl:".swiper-button-next",prevEl:".swiper-button-prev"},pagination:{clickable:!0,el:".swiper-pagination"}});function counter(){var e=document.querySelectorAll(".counter-value");function i(e){return e.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")}e&&e.forEach(function(l){!function e(){var n=+l.getAttribute("data-target"),t=+l.innerText,o=n/250;o<1&&(o=1),t<n?(l.innerText=(t+o).toFixed(0),setTimeout(e,1)):l.innerText=i(n),i(l.innerText)}()})}counter();
+/*
+Template Name: Velzon - Admin & Dashboard Template
+Author: Themesbrand
+Website: https://Themesbrand.com/
+Contact: Themesbrand@gmail.com
+File: landing Js File
+*/
+
+//  Window scroll sticky class add
+function windowScroll() {
+    var navbar = document.getElementById("navbar");
+    if (navbar) {
+        if (document.body.scrollTop >= 50 || document.documentElement.scrollTop >= 50) {
+            navbar.classList.add("is-sticky");
+        } else {
+            navbar.classList.remove("is-sticky");
+        }
+    }
+}
+
+window.addEventListener('scroll', function (ev) {
+    ev.preventDefault();
+    windowScroll();
+});
+
+// Collapse Menu
+const navLinks = document.querySelectorAll('.nav-item');
+const menuToggle = document.getElementById('navbarSupportedContent');
+if (navLinks && menuToggle) {
+    let bsCollapse = '';
+    window.addEventListener('load', function () {
+        window.dispatchEvent(new Event('resize'));
+    });
+    window.addEventListener('resize', function () {
+        var windowSize = document.documentElement.clientWidth;
+        bsCollapse = new bootstrap.Collapse(menuToggle, {
+            toggle: false
+        });
+        if (windowSize < 980) {
+            navLinks.forEach((link) => {
+                link.addEventListener('click', () => {
+                    toggleMenu();
+                });
+            });
+        } else {
+            toggleMenu();
+        }
+    });
+}
+
+function toggleMenu() {
+    var windowSize = document.documentElement.clientWidth;
+    if (windowSize < 980) {
+        bsCollapse.toggle();
+    } else {
+        bsCollapse = '';
+    }
+}
+
+// trusted-client-slider
+var swiper = new Swiper(".trusted-client-slider", {
+    spaceBetween: 30,
+    loop: 'true',
+    slidesPerView: 1,
+    autoplay: {
+        delay: 1000,
+        disableOnInteraction: false,
+    },
+    breakpoints: {
+        576: {
+            slidesPerView: 2,
+        },
+        768: {
+            slidesPerView: 3,
+        },
+        1024: {
+            slidesPerView: 4,
+        },
+    },
+});
+
+// pricing
+function check() {
+    var checkBox = document.getElementById("plan-switch");
+    var month = document.getElementsByClassName("month");
+    var annual = document.getElementsByClassName("annual");
+
+    var i = 0;
+    month.forEach(function (mon) {
+        if (checkBox.checked == true) {
+            annual[i].style.display = "block";
+            mon.style.display = "none";
+        } else if (checkBox.checked == false) {
+            annual[i].style.display = "none";
+            mon.style.display = "block";
+        }
+        i ++;
+    });
+}
+check();
+
+// client-review-swiper
+var swiper = new Swiper(".client-review-swiper", {
+    loop: false,
+    autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+    pagination: {
+        clickable: true,
+        el: ".swiper-pagination",
+    },
+});
+
+// counter-value
+function counter() {
+    var counter = document.querySelectorAll('.counter-value');
+    if (counter) {
+        var speed = 250; // The lower the slower
+        counter && counter.forEach(function (counter_value) {
+            function updateCount() {
+                var target = +counter_value.getAttribute('data-target');
+                var count = +counter_value.innerText;
+                var inc = target / speed;
+                if (inc < 1) {
+                    inc = 1;
+                }
+                // Check if target is reached
+                if (count < target) {
+                    // Add inc to count and output in counter_value
+                    counter_value.innerText = (count + inc).toFixed(0);
+                    // Call function every ms
+                    setTimeout(updateCount, 1);
+                } else {
+                    counter_value.innerText = numberWithCommas(target);
+                }
+                numberWithCommas(counter_value.innerText);
+            };
+            updateCount();
+        });
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    }
+};
+counter();

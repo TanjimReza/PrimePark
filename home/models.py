@@ -82,3 +82,11 @@ class Review(models.Model):
 class RenteeTransaction(models.Model):
     transaction_id = models.CharField("transaction_id",max_length=30, unique=True, primary_key=True)
     transaction_date = models.DateTimeField("transaction_date", auto_now_add=True, null=True)
+
+class Timing(models.Model):
+    timing_id = models.CharField("timing_id",max_length=30, unique=True, primary_key=True)
+    timing_start = models.TimeField("timing_start")
+    timing_end = models.TimeField("timing_end")
+    timing_spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.timing_id

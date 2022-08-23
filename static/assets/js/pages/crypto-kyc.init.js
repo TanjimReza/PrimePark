@@ -1,1 +1,74 @@
-document.querySelectorAll(".checkout-tab").forEach(function(o){o.querySelectorAll(".nexttab").forEach(function(t){o.querySelectorAll('button[data-bs-toggle="pill"]').forEach(function(e){e.addEventListener("show.bs.tab",function(e){e.target.classList.add("done")})}),t.addEventListener("click",function(){var e=t.getAttribute("data-nexttab");document.getElementById(e).click()})}),o.querySelectorAll(".previestab").forEach(function(r){r.addEventListener("click",function(){for(var e=r.getAttribute("data-previous"),t=r.closest("form"),o=t-1;o<t;o++)r.closest("form").querySelectorAll(".custom-nav .done")[o]&&r.closest("form").querySelectorAll(".custom-nav .done")[o].classList.remove("done");document.getElementById(e).click()})});var r=o.querySelectorAll('button[data-bs-toggle="pill"]');r.forEach(function(e,t){e.setAttribute("data-position",t),e.addEventListener("click",function(){0<o.querySelectorAll(".custom-nav .done").length&&o.querySelectorAll(".custom-nav .done").forEach(function(e){e.classList.remove("done")});for(var e=0;e<=t;e++)r[e].classList.contains("active")?r[e].classList.remove("done"):r[e].classList.add("done")})})});var dropzonePreviewNode=document.querySelector("#dropzone-preview-list");dropzonePreviewNode.id="";var previewTemplate=dropzonePreviewNode.parentNode.innerHTML;dropzonePreviewNode.parentNode.removeChild(dropzonePreviewNode);var dropzone=new Dropzone(".dropzone",{url:"https://httpbin.org/post",method:"post",previewTemplate:previewTemplate,previewsContainer:"#dropzone-preview"});
+/*
+Template Name: Velzon - Admin & Dashboard Template
+Author: Themesbrand
+Website: https://Themesbrand.com/
+Contact: Themesbrand@gmail.com
+File: Crypto-kyc init Js File
+*/
+
+
+// Checkout nav tab
+if(document.querySelectorAll(".checkout-tab"))
+document.querySelectorAll(".checkout-tab").forEach(function (form) {
+
+    // next tab
+    if(form.querySelectorAll(".nexttab"))
+    form.querySelectorAll(".nexttab").forEach(function (nextButton) {
+        var tabEl = form.querySelectorAll('button[data-bs-toggle="pill"]');
+        tabEl.forEach(function (item) {
+            item.addEventListener('show.bs.tab', function (event) {
+                event.target.classList.add('done');
+            });
+        });
+        nextButton.addEventListener("click", function () {
+            var nextTab = nextButton.getAttribute('data-nexttab');
+            document.getElementById(nextTab).click();
+        });
+    });
+
+    //Pervies tab
+    if(form.querySelectorAll(".previestab"))
+    form.querySelectorAll(".previestab").forEach(function (prevButton) {
+
+        prevButton.addEventListener("click", function () {
+            var prevTab = prevButton.getAttribute('data-previous');
+            var totalDone = prevButton.closest("form")
+            for (var i = totalDone - 1; i < totalDone; i++) {
+                (prevButton.closest("form").querySelectorAll(".custom-nav .done")[i]) ? prevButton.closest("form").querySelectorAll(".custom-nav .done")[i].classList.remove('done') : '';
+            }
+            document.getElementById(prevTab).click();
+        });
+    });
+
+    // Step number click
+    var tabButtons = form.querySelectorAll('button[data-bs-toggle="pill"]');
+    if (tabButtons)
+    tabButtons.forEach(function (button, i) {
+        button.setAttribute("data-position", i);
+        button.addEventListener("click", function () {
+            (form.querySelectorAll(".custom-nav .done").length > 0) ?
+                form.querySelectorAll(".custom-nav .done").forEach(function (doneTab) {
+                    doneTab.classList.remove('done');
+                })
+                : '';
+            for (var j = 0; j <= i; j++) {
+                tabButtons[j].classList.contains('active') ?  tabButtons[j].classList.remove('done') :  tabButtons[j].classList.add('done');
+            }
+        });
+    });
+});
+
+// Dropzone
+var dropzonePreviewNode = document.querySelector("#dropzone-preview-list");
+if(dropzonePreviewNode){
+    dropzonePreviewNode.id = "";
+    var previewTemplate = dropzonePreviewNode.parentNode.innerHTML;
+    dropzonePreviewNode.parentNode.removeChild(dropzonePreviewNode);
+}
+if(document.querySelector('.dropzone'))
+    var dropzone = new Dropzone(".dropzone", {
+        url: 'https://httpbin.org/post',
+        method: "post",
+        previewTemplate: previewTemplate,
+        previewsContainer: "#dropzone-preview",
+    });

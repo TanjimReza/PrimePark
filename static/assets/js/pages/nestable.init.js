@@ -1,1 +1,35 @@
-for(var nestedSortables=[].slice.call(document.querySelectorAll(".nested-sortable")),i=0;i<nestedSortables.length;i++)new Sortable(nestedSortables[i],{group:"nested",animation:150,fallbackOnBody:!0,swapThreshold:.65});for(var nestedSortablesHandles=[].slice.call(document.querySelectorAll(".nested-sortable-handle")),i=0;i<nestedSortablesHandles.length;i++)new Sortable(nestedSortablesHandles[i],{handle:".handle",group:"nested",animation:150,fallbackOnBody:!0,swapThreshold:.65});
+/*
+Template Name: Velzon - Admin & Dashboard Template
+Author: Themesbrand
+Website: https://Themesbrand.com/
+Contact: Themesbrand@gmail.com
+File: nestable init js
+*/
+
+// Nested sortable demo
+var nestedSortables = [].slice.call(document.querySelectorAll('.nested-sortable'));
+
+// Loop through each nested sortable element
+if (nestedSortables)
+    nestedSortables.forEach(function (nestedSort){
+        new Sortable(nestedSort, {
+            group: 'nested',
+            animation: 150,
+            fallbackOnBody: true,
+            swapThreshold: 0.65
+        });
+    });
+
+// Nested sortable handle demo
+var nestedSortablesHandles = [].slice.call(document.querySelectorAll('.nested-sortable-handle'));
+if (nestedSortablesHandles)
+    // Loop through each nested sortable element
+    nestedSortablesHandles.forEach(function (nestedSortHandle){
+        new Sortable(nestedSortHandle, {
+            handle: '.handle',
+            group: 'nested',
+            animation: 150,
+            fallbackOnBody: true,
+            swapThreshold: 0.65
+        });
+    });

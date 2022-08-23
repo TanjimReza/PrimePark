@@ -1,1 +1,7 @@
-document.getElementById("password-addon").addEventListener("click",function(){var e=document.getElementById("password-input");"password"===e.type?e.type="text":e.type="password"});
+/*
+Template Name: Velzon - Admin & Dashboard Template
+Author: Themesbrand
+Website: https://Themesbrand.com/
+Contact: Themesbrand@gmail.com
+File: Password addon Js File
+*/

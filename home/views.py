@@ -71,3 +71,6 @@ def logout(request):
     print('Logout User:', request.user.nid)
     logout_user(request)
     return redirect('login')
+
+def table(request): 
+    return render(request, 'home/table.html')
