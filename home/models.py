@@ -63,9 +63,12 @@ class Spot(models.Model):
     spot_area = models.CharField("spot_area",max_length=200)
     spot_house_no = models.CharField("spot_house_no",max_length=200)
     spot_city = models.CharField("spot_city",max_length=200)
-    spot_owner = models.ForeignKey(SpotOwner, on_delete=models.CASCADE)
+    spot_owner = models.ForeignKey(Users, on_delete=models.CASCADE,null=True)
     spot_reviews = models.ManyToManyField('Review', blank=True)
     spot_timings = models.ManyToManyField('Timing', blank=True)
+    spot_maps_url = models.CharField("spot_maps_url",max_length=200,null=True)
+    spot_desc = models.CharField("spot_desc",max_length=200,null=True)
+    spot_contact = models.CharField("spot_contact",max_length=200,null=True)
     def __str__(self):
         return self.spot_id
 class Review(models.Model):

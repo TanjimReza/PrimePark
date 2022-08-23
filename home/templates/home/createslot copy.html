@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+
 {% block title %}Create a Slot{% endblock title %}
 
 {% block row1column1 %}
@@ -13,6 +13,9 @@
             {% csrf_token %}
             <div class="text-center pt-3 pb-4 mb-1">
                 <!-- <img src="primepark.png" alt="" height=200px> -->
+                <center>
+                    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                    <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_KLSxFl.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player></center>
             </div>
             <div class="step-arrow-nav mb-4">
 
@@ -35,28 +38,28 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label name="spot_id" class="form-label" for="steparrow-gen-info-spotid-input">SpotID</label>
-                                    <input name="spot_id"type="text" class="form-control" id="steparrow-gen-info-spotid-input" required placeholder="Enter SpotID">
+                                    <label class="form-label" for="steparrow-gen-info-spotid-input">SpotID</label>
+                                    <input type="text" class="form-control" id="steparrow-gen-info-spotid-input" required placeholder="Enter SpotID">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label name="spot_area" class="form-label" for="steparrow-gen-info-area-input">Region/Area</label>
-                                    <input name="spot_area" type="text" class="form-control" id="steparrow-gen-info-area-input" required placeholder="Enter Area">
+                                    <label class="form-label" for="steparrow-gen-info-area-input">Region/Area</label>
+                                    <input type="text" class="form-control" id="steparrow-gen-info-area-input" required placeholder="Enter Area">
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label name="spot_road" class="form-label" for="steparrow-gen-info-road-input">Road/Street</label>
-                            <input name="spot_road" type="text" class="form-control" id="steparrow-gen-info-road-input" required placeholder="Enter Road Number">
+                            <label class="form-label" for="steparrow-gen-info-road-input">Road/Street</label>
+                            <input type="text" class="form-control" id="steparrow-gen-info-road-input" required placeholder="Enter Road Number">
                         </div>
                         <div>
-                            <label name="spot_house"class="form-label" for="steparrow-gen-info-confirm-house-input">House/Plot</label>
+                            <label class="form-label" for="steparrow-gen-info-confirm-house-input">House/Plot</label>
                             <input type="text" class="form-control" id="steparrow-gen-info-confirm-house-input" required style="margin-bottom:15px" placeholder="Enter House Number">
                         </div>
                         <div>
-                            <label name= "spot_number" class="form-label" for="steparrow-gen-info-contact-input">Contact Number</label>
-                            <input name= "spot_number" type="number" class="form-control" id="steparrow-gen-info-contact-input" required placeholder="Enter Contact Number">
+                            <label class="form-label" for="steparrow-gen-info-contact-input">Contact Number</label>
+                            <input type="number" class="form-control" id="steparrow-gen-info-contact-input" required placeholder="Enter Contact Number">
                         </div>
                     </div>
                     <div class="d-flex align-items-start gap-3 mt-4">
@@ -68,12 +71,12 @@
                 <div class="tab-pane fade show active" id="steparrow-description-info" role="tabpanel" aria-labelledby="steparrow-description-info-tab">
                     <div>
                         <div class="mb-3">
-                            <label name="maps_url" for="maps">Google Maps Link</label>
-                            <input name="maps_url" class="form-control" type="text" id="maps">
+                            <label for="maps">Google Maps Link</label>
+                            <input class="form-control" type="text" id="maps">
                         </div>
                         <div>
-                            <label name="spot_desc" for="des-info-description-input">Description</label>
-                            <textarea name="spot_desc" class="form-control" placeholder="Enter Extra Details" id="des-info-description-input" rows="3"></textarea>
+                            <label for="des-info-description-input">Description</label>
+                            <textarea class="form-control" placeholder="Enter Extra Details" id="des-info-description-input" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="d-flex align-items-start gap-3 mt-4">
@@ -102,4 +105,5 @@
     </div>
     <!-- end card body -->
 </div>
+
 {% endblock row1column1 %}

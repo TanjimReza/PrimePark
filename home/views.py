@@ -40,6 +40,8 @@ def dashboard(request):
         return HttpResponse('Unauthorized')
 
 def createslot(request):
+    print("CREATE SLOT")
+    print(request.POST)
     if request.method == 'POST':
         print(request.POST)
     return render(request, 'home/createslot.html')
