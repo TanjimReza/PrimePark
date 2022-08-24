@@ -145,6 +145,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 #!! ADDED BY ME 
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 AUTH_USER_MODEL = 'home.Users'
-
+EMAIL_USE_TLS = True  
+EMAIL_HOST = 'mail.tanjimreza.me'  
+EMAIL_PORT = 587 
+EMAIL_HOST_USER = 'primepark@tanjimreza.me'  
+EMAIL_HOST_PASSWORD = 'SecuredPassword2022'  

@@ -4,7 +4,6 @@ from django.contrib.auth.models import (AbstractBaseUser, AbstractUser,
                                       BaseUserManager)
 from django.db import models
 
-
 class UsersManager(BaseUserManager):
     def create_user(self, nid, password=None):
         if not nid:
@@ -58,17 +57,17 @@ class Drivers(models.Model):
     
 class Spot(models.Model):
     spot_id = models.CharField("spot_id",max_length=30, unique=True, primary_key=True)
-    spot_name = models.CharField("spot_name",max_length=200)
-    spot_road_no = models.CharField("spot_road_no",max_length=200)
+    # spot_name = models.CharField("spot_name",max_length=200)
+    spot_road = models.CharField("spot_road",max_length=200)
     spot_area = models.CharField("spot_area",max_length=200)
-    spot_house_no = models.CharField("spot_house_no",max_length=200)
-    spot_city = models.CharField("spot_city",max_length=200)
-    spot_owner = models.ForeignKey(Users, on_delete=models.CASCADE,null=True)
+    spot_house = models.CharField("spot_house",max_length=200)
+    # spot_city = models.CharField("spot_city",max_length=200)
+    spot_owner = models.ForeignKey(Users, on_delete=models.CASCADE,null=True,default=None)
     spot_reviews = models.ManyToManyField('Review', blank=True)
     spot_timings = models.ManyToManyField('Timing', blank=True)
     spot_maps_url = models.CharField("spot_maps_url",max_length=200,null=True)
     spot_desc = models.CharField("spot_desc",max_length=200,null=True)
-    spot_contact = models.CharField("spot_contact",max_length=200,null=True)
+    spot_number = models.CharField("spot_number",max_length=200,null=True)
     def __str__(self):
         return self.spot_id
 class Review(models.Model):
