@@ -25,13 +25,12 @@ SECRET_KEY = 'django-insecure-b2h2&$p&urj%d1)qm5k9cinr4svij08bzz05k8lp&i*7t_)&#*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostati'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
