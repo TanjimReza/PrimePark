@@ -25,12 +25,13 @@ SECRET_KEY = 'django-insecure-b2h2&$p&urj%d1)qm5k9cinr4svij08bzz05k8lp&i*7t_)&#*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [*]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostati'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,22 +83,22 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'primepark',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'tanjimre_primepark',
-    #     'USER': 'tanjimre_primeparkuser',
-    #     'PASSWORD': 'cff70978c4053',
-    #     'HOST': 'server-arizona-vps.quattic.com',
-    #     # 'PORT': '3306',
+    #     'NAME': 'primepark',
+    #     'USER': 'root',
+    #     'PASSWORD': '',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306',
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tanjimre_primepark',
+        'USER': 'tanjimre_primeparkuser',
+        'PASSWORD': 'cff70978c4053',
+        'HOST': 'server-arizona-vps.quattic.com',
+        # 'PORT': '3306',
+    }
     }
 
 
@@ -152,3 +154,7 @@ EMAIL_HOST = 'mail.tanjimreza.me'
 EMAIL_PORT = 587 
 EMAIL_HOST_USER = 'primepark@tanjimreza.me'  
 EMAIL_HOST_PASSWORD = 'SecuredPassword2022'  
+
+import os
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
