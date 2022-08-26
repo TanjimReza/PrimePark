@@ -20,15 +20,18 @@ from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', views.index, name='index'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('signup/', views.signup, name='signup'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('createslot/', views.createslot, name='createslot'),
     path('table/', views.table, name='table'),
-    path('driver/', views.driver, name='driver'),
-    path('dd/', views.dd, name='dd'),
+    path('drivers/', views.drivers, name='drivers'),
+    path('driverdashboard/', views.driverdashboard, name='driverdashboard'),
+    path('reviews/<str:id>/', views.reviews, name='reviews'),
+    path('reviews/', views.reviews, name='reviews'),
+    path('allreviews/', views.allreviews, name='allreviews'),
     path('bookslot/<str:id>/', views.bookslot, name='bookslot'),
 
    

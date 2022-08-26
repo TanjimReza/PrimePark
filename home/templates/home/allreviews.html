@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{request.user.name}} Dashboard{% endblock title %}
+<script src="{% static 'assets/js/layout.js' %}"></script>
+{% block row1column1 %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Spot Information</h5>
+                {{ALL_SPOTS}}
+                {{ALL_TIMES}}
+            </div>
+            <div class="card-body">
+                <table id="scroll-vertical" class="table table-bordered dt-responsive nowrap align-middle mdl-data-table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>SpotID</th>
+                            <th>Location</th>
+                            <th>Contact</th>
+                            <th>Review</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for spot in ALL_SPOTS %}
+                            <tr>
+                                <td>{{spot.spot_id}}</td>
+                                <td>Road-{{spot.spot_road}}, House-{{spot.spot_house}}, Area-{{spot.spot_area}}</td>
+                                <td>{{spot.spot_owner.name}} ({{spot.spot_number}}) </td>
+                                <td>
+                                    <textarea name ="review" class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="" readonly>{{spot.spot_reviews}}</textarea>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-success" onclick="location.href='/reviews/{{spot.spot_id}}/' ;" ></i>Add Review</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    table .book {
+        background-color: #9933ff;
+        color: white;
+        width: 80%;
+        font-size: 11px;
+        border-radius: 5px;
+        padding: 5px;
+        margin-left: 10px;
+    }
+
+    table .full {
+        background-color: red;
+        color: white;
+        width: 80%;
+        font-size: 11px;
+        border-radius: 5px;
+        padding: 5px;
+        margin-left: 10px;
+    }
+</style>
+
+
+{% endblock %}

@@ -932,9 +932,9 @@
                             </a>
                         </li> 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{% url 'driver' %}" 
+                            <a class="nav-link menu-link" href="{% url 'drivers' %}" 
                                 role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Hire Driver</span>
+                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Hire Drivers</span>
                             </a>
                         </li> 
                         <li class="menu-title"><span data-key="t-menu">Authentication</span></li>
@@ -1119,7 +1119,8 @@
     <script src="{% static 'assets/js/pages/profile-setting.init.js' %}"></script>
 
     <script src="{% static 'assets/js/pages/datatables.init.js' %}"></script>
-
+    <script src="{% static 'assets/libs/rater-js/index.js' %}"></script>
+    <script src="{% static 'assets/js/pages/rating.init.js' %}"></script>
 
     {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -1129,4 +1130,4 @@
 
 {% comment %} NEWNEW {% endcomment %}
 
-<script src="{% static 'assets/js/pages/datatables.init.js' %}"></script>
+{% comment %} <script src="{% static 'assets/js/pages/datatables.init.js' %}"></script> {% endcomment %}

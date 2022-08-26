@@ -1,5 +1,3 @@
-from dataclasses import field
-import re
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.http import HttpResponse
@@ -14,7 +12,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
-from linkpreview import link_preview
+
 # Create your views here.
 
 
@@ -30,8 +28,8 @@ def SendEmail(to_email, subject, username):
         message.content_subtype = 'html' # this is required because there is no plain text email message
         message.send()
         print("Email Sent")
-def home(request):
-    return render(request, 'home/dashboard.html')
+def index(request):
+    return render(request, 'home/index.html')
 
 
 def login(request):
@@ -192,33 +190,21 @@ def bookslot(request,id=""):
             if time in already_slots_data:
                 if time == "9:00AM-11:00AM":
                     spot_timings.slot_1 = "Booked"
-                    print("Slot 1 Booked")
-                    print(spot_timings.slot_1)
                     spot_timings.save()
                     already_slots_data[0] = "Booked"
-                    print("Already Slots:",already_slots_data)
                 if time == "11:00AM-1:00PM":
                     spot_timings.slot_2 = "Booked"
-                    print("Slot 2 Booked")
-                    print(spot_timings.slot_2)
                     spot_timings.save()
                     already_slots_data[1] = "Booked"
-                    print("Already Slots:",already_slots_data)
                 if time == "1:00PM-3:00PM":
                     spot_timings.slot_3 = "Booked"
-                    print("Slot 3 Booked")
-                    print(spot_timings.slot_3)
                     spot_timings.save()
                     already_slots_data[2] = "Booked"
-                    print("Already Slots:",already_slots_data)
                     
                 if time == "3:00PM-5:00PM":
                     spot_timings.slot_4 = "Booked"
-                    print("Slot 4 Booked")
-                    print(spot_timings.slot_4)
                     spot_timings.save()
                     already_slots_data[3] = "Booked"
-                    print("Already Slots:",already_slots_data)
         
         spot.spot_times = already_slots_data
         spot.save()
@@ -234,13 +220,44 @@ def bookslot(request,id=""):
     }
     return render(request, 'home/bookslot.html',context=context)
 
-def driver(request):
-    return render(request, 'home/driver.html')
+def drivers(request):
+    
+    ALL_DRIVERS = Drivers.objects.all()
+    context = {
+        'ALL_DRIVERS': ALL_DRIVERS,
+    }
+    return render(request, 'home/drivers.html',context=context)
 
-
-def dd(request):
+def driverdashboard(request):
     print("here")
     if request.method == "POST":
         print(request.POST)
     return render(request, 'home/driverdashboard.html')
 
+def reviews(request,id=""):
+    spot = Spot.objects.get(spot_id=id)
+    
+    if request.method == 'POST':
+        print("POST:",request.POST)
+        print("Reviewing Spot...")
+        review = request.POST.get('review')
+        print(review)
+        existing_reviews = spot.spot_reviews
+        existing_reviews += review 
+        existing_reviews += "."
+        spot.spot_reviews = existing_reviews
+        spot.save()
+        print("Spot Reviewed")
+        return redirect('dashboard')
+    
+    context = {
+        'spot': spot,
+    }
+    return render(request, 'home/reviews.html',context=context)
+
+def allreviews(request):
+    ALL_SPOTS = Spot.objects.all()
+    context = {
+        'ALL_SPOTS': ALL_SPOTS,
+    }
+    return render(request, 'home/allreviews.html',context=context)

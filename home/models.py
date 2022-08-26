@@ -54,10 +54,13 @@ class Rentee(models.Model):
 class Drivers(models.Model):
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
     driver_id = models.CharField("driver_id",max_length=30,null=True,default=None)
+    driver_area = models.CharField("driver_area",max_length=30,null=True,default="Dhaka")
+    driver_about_me = models.CharField("driver_about_me",max_length=200,null=True,default="")
+    driver_experience = models.CharField("driver_experience",max_length=200,null=True,default="2")
+    
     
 
 class Spot(models.Model):
-    SLOTS = '9:00AM-11:00AM','11:00AM-1:00PM','1:00PM-3:00PM','3:00PM-5:00PM'
     spot_id = models.CharField("spot_id",max_length=30, unique=True, primary_key=True)
     spot_road = models.CharField("spot_road",max_length=200)
     spot_area = models.CharField("spot_area",max_length=200)
@@ -67,7 +70,7 @@ class Spot(models.Model):
     spot_desc = models.CharField("spot_desc",max_length=200,null=True)
     spot_number = models.CharField("spot_number",max_length=200,null=True)
     spot_times = models.CharField("spot_times",max_length=200,default="")
-    
+    spot_reviews = models.CharField("spot_reviews",max_length=200,default="",null=True)
     def __str__(self):
         return self.spot_id
 
@@ -77,3 +80,4 @@ class TimeSlots(models.Model):
     slot_2 = models.CharField("slot_2",max_length=200,default='11:00AM-1:00PM')
     slot_3 = models.CharField("slot_3",max_length=200,default='1:00PM-3:00PM')
     slot_4 = models.CharField("slot_4",max_length=200,default='3:00PM-5:00PM')
+

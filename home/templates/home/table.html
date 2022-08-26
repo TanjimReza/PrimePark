@@ -4,7 +4,7 @@
 {% block title %}
 Hello
 {% endblock title %}
-<script src="assets/js/layout.js"></script>
+<script src="{% static 'assets/js/layout.js' %}"></script>
 <!-- Bootsrap Css  -->
 <!-- Icons Css -->
 <!-- App Css-->
@@ -68,7 +68,7 @@ Hello
                                 </td>
                 
                                 
-                                <td><button type="submit" class="btn btn-success" onclick="location.href='/bookslot/{{spot.spot_id}}//' ;" ></i>Book</button></td>
+                                <td><button type="submit" class="btn btn-success" onclick="location.href='/bookslot/{{spot.spot_id}}/' ;" ></i>Book</button></td>
                             </tr>
                         {% endfor %}
                     </tbody>
