@@ -18,10 +18,10 @@
 
                 <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link done" id="steparrow-gen-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-gen-info" type="button" role="tab" aria-controls="steparrow-gen-info" aria-selected="true" data-position="0">General</button>
+                        <button class="nav-link active" id="steparrow-gen-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-gen-info" type="button" role="tab" aria-controls="steparrow-gen-info" aria-selected="true" data-position="0">General</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="steparrow-description-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-description-info" type="button" role="tab" aria-controls="steparrow-description-info" aria-selected="false" data-position="1">Description</button>
+                        <button class="nav-link " id="steparrow-description-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-description-info" type="button" role="tab" aria-controls="steparrow-description-info" aria-selected="false" data-position="1">Description</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-experience-tab" data-bs-toggle="pill" data-bs-target="#pills-experience" type="button" role="tab" aria-controls="pills-experience" aria-selected="false" data-position="2">Finish</button>
@@ -30,7 +30,7 @@
             </div>
 
             <div class="tab-content">
-                <div class="tab-pane fade" id="steparrow-gen-info" role="tabpanel" aria-labelledby="steparrow-gen-info-tab">
+                <div class="tab-pane fade show active" id="steparrow-gen-info" role="tabpanel" aria-labelledby="steparrow-gen-info-tab">
                     <div>
                         <div class="row">
                             <div class="col-lg-6">
@@ -65,7 +65,7 @@
                 </div>
                 <!-- end tab pane -->
 
-                <div class="tab-pane fade show active" id="steparrow-description-info" role="tabpanel" aria-labelledby="steparrow-description-info-tab">
+                <div class="tab-pane fade " id="steparrow-description-info" role="tabpanel" aria-labelledby="steparrow-description-info-tab">
                     <div>
                         <div class="mb-3">
                             <label name="spot_maps_url" for="maps">Google Maps Link</label>
@@ -102,4 +102,10 @@
     </div>
     <!-- end card body -->
 </div>
+<style>
+    .form-label::after{
+    content: '*';
+    color: rgb(172, 12, 12);}
+
+</style>
 {% endblock row1column1 %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{request.user.name}} Dashboard{% endblock title %}
+
+{% block row1column1 %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table id="" class="table table-bordered dt-responsive nowrap align-middle mdl-data-table" style="width:100%">
+        <thead>
+            <tr class = "table-secondary">
+                <th>SpotID</th> 
+                <th>Area</th>
+                <th>Address</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Google Maps</th>
+                <th>Available Times</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr class = "table-secondary">
+                    <td>{{spot.spot_id}}</td>
+                    <td>{{spot.spot_area}}</td>
+                    <td>Road-{{spot.spot_road}}, House-{{spot.spot_house}}</td>
+                    <td>{{spot.spot_owner.name}}</td>
+                    <td>{{spot.spot_number}}</td>
+                    <td>
+                        <a href="{{spot.spot_maps_url}}" target="_blank">{{spot.spot_maps_url}}</a>
+                    </td>
+            
+                    <td>{{spot.spot_times}}</td>
+
+                </tr>
+     
+        </tbody>
+    </table>
+<hr>
+    <select required multiple="multiple" name="booked_slots"
+        id="multiselect-basic">
+        <option>9:00AM-11:00AM</option>
+        <option>11:00AM-1:00PM</option>
+        <option>1:00PM-3:00PM</option>
+        <option>3:00PM-5:00PM</option>
+    </select>
+    <br>
+    <input type="submit" class="btn btn-primary" value="Book Now">
+</form>
+
+{% endblock %}

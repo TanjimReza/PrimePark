@@ -1,4 +1,6 @@
+from email.policy import default
 from importlib.abc import Traversable
+from random import choices
 import django
 from django.contrib.auth.models import (AbstractBaseUser, AbstractUser,
                                       BaseUserManager)
@@ -19,6 +21,7 @@ class Users(AbstractBaseUser):
     user_type = (
         ('R', 'Rentee'),
         ('S', 'Spot Owner'),
+        ('D', 'Driver'),
     )
     nid = models.CharField("nid",max_length=30, unique=True, primary_key=True)
     name = models.CharField("name",max_length=200)
@@ -35,7 +38,6 @@ class Users(AbstractBaseUser):
 class SpotOwner(models.Model):
     user = models.OneToOneField(Users, on_delete=models.CASCADE)
     balance = models.IntegerField(default=0)
-    spot_ids = models.ManyToManyField('Spot', blank=True)
 
     def __str__(self):
         return self.user.nid
@@ -43,52 +45,35 @@ class SpotOwner(models.Model):
 
 class Rentee(models.Model):
     user = models.OneToOneField(Users, on_delete=models.CASCADE)
-    rentee_balance = models.IntegerField(default=0)
-    rentee_spot_ids = models.ManyToManyField('Spot', blank=True)
-    rentee_transactions = models.ManyToManyField('RenteeTransaction', blank=True)
+    rentee_balance = models.CharField("rentee_balance", max_length=10, default=0)
+
 
     def __str__(self):
         return self.user.nid
 
 class Drivers(models.Model):
-    user = models.OneToOneField(Users, on_delete=models.CASCADE)
-    driver_phone = models.IntegerField(default=0)
-    driver_id = models.CharField("driver_id",max_length=30, unique=True, primary_key=True)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    driver_id = models.CharField("driver_id",max_length=30,null=True,default=None)
     
+
 class Spot(models.Model):
+    SLOTS = '9:00AM-11:00AM','11:00AM-1:00PM','1:00PM-3:00PM','3:00PM-5:00PM'
     spot_id = models.CharField("spot_id",max_length=30, unique=True, primary_key=True)
-    # spot_name = models.CharField("spot_name",max_length=200)
     spot_road = models.CharField("spot_road",max_length=200)
     spot_area = models.CharField("spot_area",max_length=200)
     spot_house = models.CharField("spot_house",max_length=200)
-    # spot_city = models.CharField("spot_city",max_length=200)
     spot_owner = models.ForeignKey(Users, on_delete=models.CASCADE,null=True,default=None)
-    spot_reviews = models.ManyToManyField('Review', blank=True)
-    spot_timings = models.ManyToManyField('Timing', blank=True)
     spot_maps_url = models.CharField("spot_maps_url",max_length=200,null=True)
     spot_desc = models.CharField("spot_desc",max_length=200,null=True)
     spot_number = models.CharField("spot_number",max_length=200,null=True)
+    spot_times = models.CharField("spot_times",max_length=200,default="")
+    
     def __str__(self):
         return self.spot_id
-class Review(models.Model):
-    review_id = models.CharField("review_id",max_length=30, unique=True, primary_key=True)
-    review_text = models.CharField("review_text",max_length=200)
-    review_rating = models.IntegerField("review_rating",default=0)
-    review_date = models.DateTimeField("review_date", auto_now_add=True, null=True)
-    review_user = models.ForeignKey(Users, on_delete=models.CASCADE)
-    review_spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.review_id
 
-
-class RenteeTransaction(models.Model):
-    transaction_id = models.CharField("transaction_id",max_length=30, unique=True, primary_key=True)
-    transaction_date = models.DateTimeField("transaction_date", auto_now_add=True, null=True)
-
-class Timing(models.Model):
-    timing_id = models.CharField("timing_id",max_length=30, unique=True, primary_key=True)
-    timing_start = models.TimeField("timing_start")
-    timing_end = models.TimeField("timing_end")
-    timing_spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.timing_id
+class TimeSlots(models.Model):
+    spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
+    slot_1 = models.CharField("slot_1",max_length=200,default='9:00AM-11:00AM')
+    slot_2 = models.CharField("slot_2",max_length=200,default='11:00AM-1:00PM')
+    slot_3 = models.CharField("slot_3",max_length=200,default='1:00PM-3:00PM')
+    slot_4 = models.CharField("slot_4",max_length=200,default='3:00PM-5:00PM')

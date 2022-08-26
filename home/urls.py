@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from home import views
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
@@ -25,6 +27,12 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('createslot/', views.createslot, name='createslot'),
     path('table/', views.table, name='table'),
+    path('driver/', views.driver, name='driver'),
+    path('dd/', views.dd, name='dd'),
+    path('bookslot/<str:id>/', views.bookslot, name='bookslot'),
 
    
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

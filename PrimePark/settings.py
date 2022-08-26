@@ -82,22 +82,22 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'primepark',
-    #     'USER': 'root',
-    #     'PASSWORD': '',
-    #     'HOST': 'localhost',
-    #     'PORT': '3306',
-    # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tanjimre_primepark',
-        'USER': 'tanjimre_primeparkuser',
-        'PASSWORD': 'cff70978c4053',
-        'HOST': 'server-arizona-vps.quattic.com',
-        # 'PORT': '3306',
+        'NAME': 'primepark',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'tanjimre_primepark',
+    #     'USER': 'tanjimre_primeparkuser',
+    #     'PASSWORD': 'cff70978c4053',
+    #     'HOST': 'server-arizona-vps.quattic.com',
+    #     # 'PORT': '3306',
+    # }
     }
 
 
