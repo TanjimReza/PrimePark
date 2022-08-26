@@ -26,6 +26,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('createslot/', views.createslot, name='createslot'),
+    path('unauthorized/', views.unauthorized, name='unauthorized'),
     path('spots/', views.spots, name='spots'),
     path('drivers/', views.drivers, name='drivers'),
     path('driverdashboard/', views.driverdashboard, name='driverdashboard'),

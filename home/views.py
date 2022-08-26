@@ -28,6 +28,8 @@ def SendEmail(to_email, subject, username):
         message.content_subtype = 'html' # this is required because there is no plain text email message
         message.send()
         print("Email Sent")
+        
+
 def index(request):
     return render(request, 'home/index.html')
 
@@ -52,39 +54,44 @@ def login(request):
         return render(request, 'home/login.html')
 
 def dashboard(request):
-    print("Dashboard User:", request.user.nid)
+    # print("Dashboard User:", request.user.nid)
     if request.user.is_authenticated:
-        print("Sending Email")
-        # import html message.html file
-        # SendEmail("tanjimreza786@gmail.com", 'Welcome to PrimePark', request.user.name)
+        print("Dashboard User Type:", request.user.is_owner)
+
         return render(request, 'home/dashboard.html')
     else:
-        return HttpResponse('Unauthorized')
+        return redirect('login')
 
 def createslot(request):
-    if request.method == 'POST':
-        print("POST:",request.POST)
-        print("Creating Slot...")
+    if request.user.is_authenticated:
+        if request.user.is_owner == "S":
+            if request.method == 'POST':
+                print("POST:",request.POST)
+                print("Creating Slot...")
 
-        NEWSPOT = Spot.objects.create(
-            spot_id = request.POST.get('spot_id'),
-            spot_area = request.POST.get('spot_area'),
-            spot_road = request.POST.get('spot_road'),
-            spot_house = request.POST.get('spot_house'),
-            spot_number = request.POST.get('spot_number'),
-            spot_maps_url = request.POST.get('spot_maps_url'),
-            spot_desc = request.POST.get('spot_desc'),
-            spot_owner = Users.objects.get(nid=request.user.nid),
-        )
-        NEWSPOT.save()
-        
-        NEWTIME = TimeSlots.objects.create(
-            spot = NEWSPOT
-        )
-        NEWTIME.save()        
-        print("New Spot Created")
-        return redirect('spots') 
-    return render(request, 'home/createslot.html')
+                NEWSPOT = Spot.objects.create(
+                    spot_id = request.POST.get('spot_id'),
+                    spot_area = request.POST.get('spot_area'),
+                    spot_road = request.POST.get('spot_road'),
+                    spot_house = request.POST.get('spot_house'),
+                    spot_number = request.POST.get('spot_number'),
+                    spot_maps_url = request.POST.get('spot_maps_url'),
+                    spot_desc = request.POST.get('spot_desc'),
+                    spot_owner = Users.objects.get(nid=request.user.nid),
+                )
+                NEWSPOT.save()
+                
+                NEWTIME = TimeSlots.objects.create(
+                    spot = NEWSPOT
+                )
+                NEWTIME.save()        
+                print("New Spot Created")
+                return redirect('spots') 
+            return render(request, 'home/createslot.html')
+        else: 
+            return redirect('unauthorized')
+    else:
+        return redirect('login')
 
 def signup(request):
     if request.method == 'POST':
@@ -228,6 +235,11 @@ def drivers(request):
     }
     return render(request, 'home/drivers.html',context=context)
 
+
+def unauthorized(request):
+    return render(request, 'home/unauthorized.html')
+
+
 def driverdashboard(request):
     print("here")
     if request.method == "POST":
@@ -292,12 +304,9 @@ def allreviews(request):
 def makepayment(request):
     if request.method == 'POST':
         print("POST:",request.POST)
-        print("Making Payment...")
-        user = request.user
-        rentee = Rentee.objects.get(user=user)
-        rentee.balance -= 100
-        rentee.save()
-        print("Payment Made")
+        user = Users.objects.get(nid=request.user.nid)
+        user.user_balance = user.user_balance + int(request.POST.get('amount'))
+        user.save()
         return redirect('dashboard')
     return render(request, 'home/makepayment.html')
 

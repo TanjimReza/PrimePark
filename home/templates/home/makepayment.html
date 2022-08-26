@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{request.user.name}} Make Payment {% endblock title %}
+
+{% block row1column1 %}
+<h3 style="font-weight: bold; margin-left: 10px; margin-top: 2px;">Make Payment</h3>
+<hr>
+<form action="" method="POST" style="margin: auto; padding: 10px;">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label name="amount" for="amount" class="form-label">Amount</label>
+        <input name="amount" type="text" class="form-control" id="amount" placeholder="Enter Amount">
+    </div>
+    <div class="mb-3">
+        <label name="tranxID" for="tranxID" class="form-label">Transaction ID</label>
+        <input name="tranxID" type="text" class="form-control" id="tranxID" placeholder="Enter Transaction ID">
+    </div>
+    </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary" style="background-color: #9933ff; border-color: white; color: white;">Submit</button>
+    </div>
+</form>
+
+{% endblock %}
