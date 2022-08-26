@@ -30,6 +30,7 @@ class Users(AbstractBaseUser):
     contact = models.CharField("contact",max_length=15, null=True)
     last_login = models.DateTimeField("last_login", auto_now_add=True, null=True)
     is_owner = models.CharField("is_owner", max_length=10, choices=user_type,default='user')
+    user_balance = models.IntegerField("user_balance", default=0,null=True)
     USERNAME_FIELD = 'nid'
     objects = UsersManager()
     def __str__(self):
@@ -37,7 +38,6 @@ class Users(AbstractBaseUser):
 
 class SpotOwner(models.Model):
     user = models.OneToOneField(Users, on_delete=models.CASCADE)
-    balance = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.nid
@@ -45,7 +45,6 @@ class SpotOwner(models.Model):
 
 class Rentee(models.Model):
     user = models.OneToOneField(Users, on_delete=models.CASCADE)
-    rentee_balance = models.CharField("rentee_balance", max_length=10, default=0)
 
 
     def __str__(self):
@@ -57,6 +56,7 @@ class Drivers(models.Model):
     driver_area = models.CharField("driver_area",max_length=30,null=True,default="Dhaka")
     driver_about_me = models.CharField("driver_about_me",max_length=200,null=True,default="")
     driver_experience = models.CharField("driver_experience",max_length=200,null=True,default="2")
+    driver_contact = models.CharField("driver_contact",max_length=15, null=True)
     
     
 

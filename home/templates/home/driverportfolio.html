@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{request.user.name}} Dashboard{% endblock title %}
+
+{% block row1column1 %}
+<h3 style="font-weight: bold; margin-left: 10px; margin-top: 2px;">Personal Details & Experience</h3>
+<hr>
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label name="license" for="license" class="form-label">License Number</label>
+        <input name="license" type="text" class="form-control" id="license" placeholder="{{license}} "readonly>
+    </div>
+    <div class="mb-3">
+        <label name="city" for="city" class="form-label">City</label>
+        <input name="city" type="text" class="form-control" id="cityInput" placeholder="{{area}} " readonly>
+    </div>
+    <div class="mb-3">
+        <label name="aboutyou" for="aboutyou" class="form-label">About You</label>
+        <textarea name ="aboutyou" class="form-control" id="aboutyou" placeholder="{{aboutyou}}" rows="4" readonly></textarea>
+    </div>
+    <div class="mb-3">
+        <label name ="exp" for="exp" class="form-label"></label>
+        <input name ="exp" type="text" class="form-control" id="exp" placeholder="{{expr}} "readonly>
+    </div>
+    <div class="mb-3">
+        <label name ="exp" for="exp" class="form-label"></label>
+        <input name ="exp" type="text" class="form-control" id="exp" placeholder="{{expr}} "readonly>
+    </div>
+
+</form>
+{% endblock %}

@@ -26,13 +26,16 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('createslot/', views.createslot, name='createslot'),
-    path('table/', views.table, name='table'),
+    path('spots/', views.spots, name='spots'),
     path('drivers/', views.drivers, name='drivers'),
     path('driverdashboard/', views.driverdashboard, name='driverdashboard'),
     path('reviews/<str:id>/', views.reviews, name='reviews'),
     path('reviews/', views.reviews, name='reviews'),
     path('allreviews/', views.allreviews, name='allreviews'),
+    path('makepayment/', views.makepayment, name='makepayment'),
     path('bookslot/<str:id>/', views.bookslot, name='bookslot'),
+    
+    path('driverportfolio/<str:id>/', views.driverportfolio, name='driverportfolio'),
 
    
 ]

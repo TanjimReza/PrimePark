@@ -31,3 +31,74 @@
     </div>
 </div>
 {% endblock first_info %}
+
+{% block row1column1 %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="team-list row list-view-filter">
+            <div class="col">
+                <div class="card team-box">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center team-row">
+                            <div class="col team-settings">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="bookmark-icon flex-shrink-0 me-2">
+                                            <input type="checkbox" id="favourite1" class="bookmark-input bookmark-hide">
+                                            <label for="favourite1" class="btn-star">
+                                                <svg width="20" height="20">
+                                                    <use xlink:href="#icon-star"></use>
+                                                </svg>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                             
+                            <div class="col-lg-4 col">
+                                <div class="team-profile-img">
+                                    <div class="avatar-lg img-thumbnail rounded-circle flex-shrink-0">
+                                        <img src="https://raw.githubusercontent.com/TanjimReza/PrimePark/ca92b0f5fa94ba8ab3cf53a6967214196bddf9ab/home/templates/home/default_photo.jpg" alt="" class="img-fluid d-block rounded-circle">
+                                    </div>
+                                    <div class="team-content">
+                                        <a data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample">
+                                            <h5 class="fs-16 mb-1">{{request.user.name}}</h5>
+                                        </a>
+                                        <p class="text-muted mb-0">{{request.user.is_owner}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col">
+                                <div class="row text-muted text-center">
+                                    <div class="col-6 border-end border-end-dashed">
+                                        <h5 class="mb-1">{{request.user.user_balance}} BDT</h5>
+                                        <p class="text-muted mb-0">Balance</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5 class="mb-1">Bangladesh</h5>
+                                        <p class="text-muted mb-0">Country</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col">
+                                <div class="text-end">
+                                    <a href="{% url 'dashboard' %}" class="btn btn-light view-btn" style="background-color: #9933ff; border-color: white; color: white;">View Profile</a>
+                                </div>
+                            </div>
+                            
+                        
+                        </div>
+                    </div>
+                </div>
+                <!--end card-->
+            </div>
+            <!--end col-->
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

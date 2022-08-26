@@ -83,7 +83,7 @@ def createslot(request):
         )
         NEWTIME.save()        
         print("New Spot Created")
-        return redirect('table') 
+        return redirect('spots') 
     return render(request, 'home/createslot.html')
 
 def signup(request):
@@ -145,7 +145,7 @@ def logout(request):
     logout_user(request)
     return redirect('login')
 
-def table(request): 
+def spots(request): 
     
     ALL_SPOTS = Spot.objects.all()
     print(ALL_SPOTS)
@@ -166,7 +166,7 @@ def table(request):
         'ALL_SPOTS': ALL_SPOTS,
     }
     
-    return render(request, 'home/table.html',context=context)
+    return render(request, 'home/spots.html',context=context)
 
 def bookslot(request,id=""):
     spot = Spot.objects.get(spot_id=id)
@@ -232,6 +232,32 @@ def driverdashboard(request):
     print("here")
     if request.method == "POST":
         print(request.POST)
+        driver = Drivers.objects.get(user=request.user)
+        driver.driver_id = request.POST.get('license')
+        driver.driver_area = request.POST.get('city')    
+        driver.driver_about_me = request.POST.get('aboutyou')
+        driver.driver_experience = request.POST.get('exp')
+        driver.driver_contact = request.POST.get('contact')
+        driver.save()
+        print("Driver Updated")
+        return redirect('driverdashboard')  
+    
+    driver = Drivers.objects.get(user=request.user)
+    license = driver.driver_id
+    area = driver.driver_area
+    aboutyou = driver.driver_about_me
+    expr = driver.driver_experience
+    context = {
+        'license': license,
+        'area': area,
+        'aboutyou': aboutyou,
+        'expr': expr,
+        'contact': driver.user.contact,
+    }
+    return render(request, 'home/driverdashboard.html',context=context)
+        
+    
+    
     return render(request, 'home/driverdashboard.html')
 
 def reviews(request,id=""):
@@ -261,3 +287,37 @@ def allreviews(request):
         'ALL_SPOTS': ALL_SPOTS,
     }
     return render(request, 'home/allreviews.html',context=context)
+
+
+def makepayment(request):
+    if request.method == 'POST':
+        print("POST:",request.POST)
+        print("Making Payment...")
+        user = request.user
+        rentee = Rentee.objects.get(user=user)
+        rentee.balance -= 100
+        rentee.save()
+        print("Payment Made")
+        return redirect('dashboard')
+    return render(request, 'home/makepayment.html')
+
+def driverportfolio(request,id=""):
+    driver = Drivers.objects.get(driver_id=id)
+    license = driver.driver_id
+    area = driver.driver_area
+    aboutyou = driver.driver_about_me
+    expr = driver.driver_experience
+    contact = driver.driver_contact
+    
+    # contact = Users.objects.get(user=driver.user)
+    
+    # print(contact)
+    context = {
+        'license': license,
+        'area': area,
+        'aboutyou': aboutyou,
+        'expr': expr,
+        'contact': contact,
+    }
+    
+    return render(request, 'home/driverportfolio.html',context=context)

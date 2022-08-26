@@ -9,19 +9,23 @@
     {% csrf_token %}
     <div class="mb-3">
         <label name="license" for="license" class="form-label">License Number</label>
-        <input name="license" type="text" class="form-control" id="license" placeholder="Enter Drivers License Number">
+        <input name="license" type="text" class="form-control" id="license" placeholder="{{license}}">
     </div>
     <div class="mb-3">
         <label name="city" for="city" class="form-label">City</label>
-        <input name="city" type="text" class="form-control" id="cityInput" placeholder="Enter City" >
+        <input name="city" type="text" class="form-control" id="cityInput" placeholder="{{area}}" >
     </div>
     <div class="mb-3">
         <label name="aboutyou" for="aboutyou" class="form-label">About You</label>
-        <textarea name ="aboutyou" class="form-control" id="aboutyou" placeholder="Enter Your Description" rows="4"></textarea>
+        <textarea name ="aboutyou" class="form-control" id="aboutyou" placeholder="{{aboutyou}}" rows="4"></textarea>
     </div>
     <div class="mb-3">
-        <label name ="exp" for="exp" class="form-label">Experience(Years)</label>
-        <input name ="exp" type="text" class="form-control" id="exp" placeholder="eg: 2 or 5">
+        <label name ="exp" for="exp" class="form-label">Experience</label>
+        <input name ="exp" type="text" class="form-control" id="exp" placeholder="{{expr}}">
+    </div>
+    <div class="mb-3">
+        <label name ="contact" for="contact" class="form-label">Contact</label>
+        <input name ="contact" type="text" class="form-control" id="contact" placeholder="{{contact}}">
     </div>
     <div class="text-end">
         <button type="submit" class="btn btn-primary" style="cursor: pointer; background-color: #9933ff; border-color: white;" >Update Profile</button>

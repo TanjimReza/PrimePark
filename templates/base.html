@@ -913,7 +913,7 @@
                             </a>
                         </li> 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="" 
+                            <a class="nav-link menu-link" href="{% url 'spots' %}" 
                                 role="button" aria-expanded="false" aria-controls="sidebarDashboards">
                                 <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Book Slot</span>
                             </a>
@@ -926,7 +926,7 @@
                             </a>
                         </li> 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="/end" 
+                            <a class="nav-link menu-link" href="" 
                                 role="button" aria-expanded="false" aria-controls="sidebarDashboards">
                                 <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Transfer Credit</span>
                             </a>
@@ -974,7 +974,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                <h4 class="mb-sm-0">Dashboard - {{PAGE_HEADER}}</h4>
+                                <h4 class="mb-sm-0">Dashboard{{PAGE_HEADER}}</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
@@ -996,9 +996,9 @@
                                     <div class="col-12">
                                         <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                                             <div class="flex-grow-1">
-                                                <h4 class="fs-16 mb-1">{{DASHBOARD_STATUS}} {{USERNAME}}Good Morning, Anna!</h4>
-                                                <p class="text-muted mb-0">{{DASHBOARD_SHORT_MSG}}Here's what's happening with your store
-                                                    today.</p>
+                                                <h4 class="fs-16 mb-1">Welcome to PrimePark!</h4>
+                                                <p class="text-muted mb-0">
+                                                    </p>
                                             </div>
                                         </div><!-- end card header -->
                                     </div>
@@ -1007,7 +1007,7 @@
                                 <!--end row-->
                                 
                                 <div class="row">
-                                    <H2>ROW_START_1</H2>
+                                    <H2></H2>
                                     {% comment %} COLUMN_STARTS_HERE {% endcomment %}
                                     <div class="col-xl col-xl">
                                         <!-- card -->
