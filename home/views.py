@@ -117,9 +117,7 @@ def signup(request):
         #! Owner Creation Part
         if user_type == 'S':
             print("Creating Owner...")
-            owner = SpotOwner.objects.create(user=user, 
-                                             balance=0,
-                                             )
+            owner = SpotOwner.objects.create(user=user)
             owner.save()
             print("Owner Created")
             return redirect('login')
@@ -148,92 +146,111 @@ def signup(request):
 
 
 def logout(request):
-    print('Logout User:', request.user.nid)
+    # print('Logout User:', request.user.nid)
     logout_user(request)
     return redirect('login')
 
 def spots(request): 
+    if request.user.is_authenticated:
     
-    ALL_SPOTS = Spot.objects.all()
-    print(ALL_SPOTS)
-    ALL_SPOTS = [spot for spot in ALL_SPOTS]
-    ALL_TIMES = []
-    for spot in ALL_SPOTS:
-        print("Spot:",spot)
-        slots = TimeSlots.objects.get(spot=spot)
-        fields = slots._meta.get_fields()
-        lst = []
-        for field in fields:
-            lst.append(field.value_from_object(slots))
-        print("----")   
-        lst = lst[2:]
-        spot.spot_times = lst
-        spot.save()
-    context = {
-        'ALL_SPOTS': ALL_SPOTS,
-    }
-    
-    return render(request, 'home/spots.html',context=context)
-
+        ALL_SPOTS = Spot.objects.all()
+        print(ALL_SPOTS)
+        ALL_SPOTS = [spot for spot in ALL_SPOTS]
+        ALL_TIMES = []
+        for spot in ALL_SPOTS:
+            print("Spot:",spot)
+            slots = TimeSlots.objects.get(spot=spot)
+            fields = slots._meta.get_fields()
+            lst = []
+            for field in fields:
+                lst.append(field.value_from_object(slots))
+            print("----")   
+            lst = lst[2:]
+            spot.spot_times = lst
+            spot.save()
+        context = {
+            'ALL_SPOTS': ALL_SPOTS,
+        }
+        
+        return render(request, 'home/spots.html',context=context)
+    else: 
+        return redirect('unauthorized')
 def bookslot(request,id=""):
-    spot = Spot.objects.get(spot_id=id)
-    spot_timings = TimeSlots.objects.get(spot=spot)
-    already_slots_data = []
-    already_slots_data.append(spot_timings.slot_1)
-    already_slots_data.append(spot_timings.slot_2)
-    already_slots_data.append(spot_timings.slot_3)
-    already_slots_data.append(spot_timings.slot_4)
-    print("Already Slots:",already_slots_data)
-    
-    # print (spot.spot_slots)
+    if request.user.is_authenticated:
+        spot = Spot.objects.get(spot_id=id)
+        spot_timings = TimeSlots.objects.get(spot=spot)
+        already_slots_data = []
+        already_slots_data.append(spot_timings.slot_1)
+        already_slots_data.append(spot_timings.slot_2)
+        already_slots_data.append(spot_timings.slot_3)
+        already_slots_data.append(spot_timings.slot_4)
+        print("Already Slots:",already_slots_data)
+        
+        # print (spot.spot_slots)
 
-    if request.method == 'POST':
-        print("POST:",request.POST)
-        print("Booking Slot...")
-        post_request_slots = request.POST.getlist('booked_slots')
-        print(post_request_slots)
-        
-        for i, time in enumerate(post_request_slots):
-            if time in already_slots_data:
-                if time == "9:00AM-11:00AM":
-                    spot_timings.slot_1 = "Booked"
-                    spot_timings.save()
-                    already_slots_data[0] = "Booked"
-                if time == "11:00AM-1:00PM":
-                    spot_timings.slot_2 = "Booked"
-                    spot_timings.save()
-                    already_slots_data[1] = "Booked"
-                if time == "1:00PM-3:00PM":
-                    spot_timings.slot_3 = "Booked"
-                    spot_timings.save()
-                    already_slots_data[2] = "Booked"
-                    
-                if time == "3:00PM-5:00PM":
-                    spot_timings.slot_4 = "Booked"
-                    spot_timings.save()
-                    already_slots_data[3] = "Booked"
-        
-        spot.spot_times = already_slots_data
-        spot.save()
-        
-        print("Final Slots:",already_slots_data)
-        
-        
-        
-        
-    context = {
-        'id' : id,
-        'spot': spot,
-    }
-    return render(request, 'home/bookslot.html',context=context)
+        if request.method == 'POST':
+            print("POST:",request.POST)
+            print("Booking Slot...")
+            post_request_slots = request.POST.getlist('booked_slots')
+            print(post_request_slots)
+            
+            for i, time in enumerate(post_request_slots):
+                if time in already_slots_data:
+                    if time == "9:00AM-11:00AM":
+                        spot_timings.slot_1 = "Booked"
+                        spot_timings.save()
+                        already_slots_data[0] = "Booked"
+                    if time == "11:00AM-1:00PM":
+                        spot_timings.slot_2 = "Booked"
+                        spot_timings.save()
+                        already_slots_data[1] = "Booked"
+                    if time == "1:00PM-3:00PM":
+                        spot_timings.slot_3 = "Booked"
+                        spot_timings.save()
+                        already_slots_data[2] = "Booked"
+                        
+                    if time == "3:00PM-5:00PM":
+                        spot_timings.slot_4 = "Booked"
+                        spot_timings.save()
+                        already_slots_data[3] = "Booked"
+            
+            spot.spot_times = already_slots_data
+            spot.save()
+            
+            print("Final Slots:",already_slots_data)
+            
+            
+            
+            
+        context = {
+            'id' : id,
+            'spot': spot,
+        }
+        print("Sending Email Function")
+        html_template = 'home/message2.html'
+        subject = "Spot Booking Confirmation"
+        from_email = settings.EMAIL_HOST_USER
+        to_email = request.user.email
+        print("to_email:",to_email)
+        username = request.user.name
+        html_message = render_to_string(html_template, { 'username': username })
+        message = EmailMessage(subject, html_message, from_email, [to_email])
+        message.content_subtype = 'html' # this is required because there is no plain text email message
+        message.send()
+        print("Email Sent")
+        return render(request, 'home/bookslot.html',context=context)
+    else:
+        return redirect('unauthorized')
 
 def drivers(request):
-    
-    ALL_DRIVERS = Drivers.objects.all()
-    context = {
-        'ALL_DRIVERS': ALL_DRIVERS,
-    }
-    return render(request, 'home/drivers.html',context=context)
+    if request.user.is_authenticated:
+        ALL_DRIVERS = Drivers.objects.all()
+        context = {
+            'ALL_DRIVERS': ALL_DRIVERS,
+        }
+        return render(request, 'home/drivers.html',context=context)
+    else:
+        return redirect('unauthorized')
 
 
 def unauthorized(request):
@@ -241,92 +258,108 @@ def unauthorized(request):
 
 
 def driverdashboard(request):
-    print("here")
-    if request.method == "POST":
-        print(request.POST)
-        driver = Drivers.objects.get(user=request.user)
-        driver.driver_id = request.POST.get('license')
-        driver.driver_area = request.POST.get('city')    
-        driver.driver_about_me = request.POST.get('aboutyou')
-        driver.driver_experience = request.POST.get('exp')
-        driver.driver_contact = request.POST.get('contact')
-        driver.save()
-        print("Driver Updated")
-        return redirect('driverdashboard')  
+    if request.user.is_authenticated:
+        if request.user.is_owner == "D":
+            print("here")
+            if request.method == "POST":
+                print(request.POST)
+                driver = Drivers.objects.get(user=request.user)
+                driver.driver_id = request.POST.get('license')
+                driver.driver_area = request.POST.get('city')    
+                driver.driver_about_me = request.POST.get('aboutyou')
+                driver.driver_experience = request.POST.get('exp')
+                driver.driver_contact = request.POST.get('contact')
+                driver.save()
+                print("Driver Updated")
+                return redirect('driverdashboard')  
+            
+            driver = Drivers.objects.get(user=request.user)
+            license = driver.driver_id
+            area = driver.driver_area
+            aboutyou = driver.driver_about_me
+            expr = driver.driver_experience
+            context = {
+                'license': license,
+                'area': area,
+                'aboutyou': aboutyou,
+                'expr': expr,
+                'contact': driver.user.contact,
+            }
+            return render(request, 'home/driverdashboard.html',context=context)
+        else:
+            return redirect('unauthorized')
+            
+    else:
+        return redirect('unauthorized')
     
-    driver = Drivers.objects.get(user=request.user)
-    license = driver.driver_id
-    area = driver.driver_area
-    aboutyou = driver.driver_about_me
-    expr = driver.driver_experience
-    context = {
-        'license': license,
-        'area': area,
-        'aboutyou': aboutyou,
-        'expr': expr,
-        'contact': driver.user.contact,
-    }
-    return render(request, 'home/driverdashboard.html',context=context)
-        
-    
-    
-    return render(request, 'home/driverdashboard.html')
-
 def reviews(request,id=""):
-    spot = Spot.objects.get(spot_id=id)
-    
-    if request.method == 'POST':
-        print("POST:",request.POST)
-        print("Reviewing Spot...")
-        review = request.POST.get('review')
-        print(review)
-        existing_reviews = spot.spot_reviews
-        existing_reviews += review 
-        existing_reviews += "."
-        spot.spot_reviews = existing_reviews
-        spot.save()
-        print("Spot Reviewed")
-        return redirect('dashboard')
-    
-    context = {
-        'spot': spot,
-    }
-    return render(request, 'home/reviews.html',context=context)
+    if request.user.is_authenticated:
+        spot = Spot.objects.get(spot_id=id)
+        if request.method == 'POST':
+            print("POST:",request.POST)
+            print("Reviewing Spot...")
+            review = request.POST.get('review')
+            print(review)
+            existing_reviews = spot.spot_reviews
+            existing_reviews += review 
+            existing_reviews += "."
+            spot.spot_reviews = existing_reviews
+            spot.save()
+            print("Spot Reviewed")
+            return redirect('dashboard')
+        
+        context = {
+            'spot': spot,
+        }
+        return render(request, 'home/reviews.html',context=context)
+    else:
+        return redirect('login')
 
 def allreviews(request):
-    ALL_SPOTS = Spot.objects.all()
-    context = {
-        'ALL_SPOTS': ALL_SPOTS,
-    }
-    return render(request, 'home/allreviews.html',context=context)
-
+    if request.user.is_authenticated:
+        ALL_SPOTS = Spot.objects.all()
+        context = {
+            'ALL_SPOTS': ALL_SPOTS,
+        }
+        return render(request, 'home/allreviews.html',context=context)
+    else:
+        return redirect('login')
 
 def makepayment(request):
-    if request.method == 'POST':
-        print("POST:",request.POST)
-        user = Users.objects.get(nid=request.user.nid)
-        user.user_balance = user.user_balance + int(request.POST.get('amount'))
-        user.save()
-        return redirect('dashboard')
-    return render(request, 'home/makepayment.html')
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            print("POST:",request.POST)
+            user = Users.objects.get(nid=request.user.nid)
+            user.user_balance = user.user_balance + int(request.POST.get('amount'))
+            user.save()
+            return redirect('dashboard')
+        return render(request, 'home/makepayment.html')
+    else:
+        return redirect('login')
 
 def driverportfolio(request,id=""):
-    driver = Drivers.objects.get(driver_id=id)
-    license = driver.driver_id
-    area = driver.driver_area
-    aboutyou = driver.driver_about_me
-    expr = driver.driver_experience
-    contact = driver.driver_contact
+    if request.user.is_authenticated:
+        
+        driver = Drivers.objects.get(driver_id=id)
+        license = driver.driver_id
+        area = driver.driver_area
+        aboutyou = driver.driver_about_me
+        expr = driver.driver_experience
+        contact = driver.driver_contact
+        
+        # contact = Users.objects.get(user=driver.user)
+        
+        # print(contact)
+        context = {
+            'license': license,
+            'area': area,
+            'aboutyou': aboutyou,
+            'expr': expr,
+            'contact': contact,
+        }
+        
+        return render(request, 'home/driverportfolio.html',context=context)
+    else:
+        return redirect('login')
     
-    # contact = Users.objects.get(user=driver.user)
     
-    # print(contact)
-    context = {
-        'license': license,
-        'area': area,
-        'aboutyou': aboutyou,
-        'expr': expr,
-        'contact': contact,
-    }
-    
-    return render(request, 'home/driverportfolio.html',context=context)

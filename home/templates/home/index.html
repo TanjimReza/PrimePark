@@ -5,7 +5,7 @@
 {% comment %} {% static 'css/style.css' %} {% endcomment %}
 <head>
     <meta charset="UTF-8">
-    <title>EzPark Main | One Page</title>
+    <title>Prime Park | Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{% static 'iassets/img/fv.png" type="image/x-icon' %}">
     <link rel="icon" href="{% static 'iassets/img/fv.png" type="image/x-icon' %}">
@@ -52,7 +52,7 @@
                     </ul>
                 </div>
                 <div class="sign-up-btn-eight text-center float-right clearfix">
-                    <a href="url 'login">Sign In</a>
+                    <a href="{% url 'login' %}">Sign In</a>
                 </div>
             </div>
             <!-- /desktop-menu -->
@@ -107,7 +107,7 @@
                                 </h1>
                                 <P>PrimePark is the best solution for parking your vehicle!</P>
                                 <div class="ei-banner-btn">
-                                    <a href="url 'signup"><i class="fas fa-power-off"></i> Get started!</a>
+                                    <a href=" {% url 'signup' %}"><i class="fas fa-power-off"></i> Get started!</a>
                                 </div>
                                 <div class="ei-banner-review pera-content ul-li">
                                     <ul>
