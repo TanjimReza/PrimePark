@@ -5,4 +5,4 @@ new = ['1:00PM-3:00PM']
 for i in new:
     if i in existing:
         existing.remove(i)
-print(existing)
+print(existing,"s") 
