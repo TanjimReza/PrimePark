@@ -37,6 +37,8 @@ urlpatterns = [
     path('bookslot/<str:id>/', views.bookslot, name='bookslot'),
     
     path('driverportfolio/<str:id>/', views.driverportfolio, name='driverportfolio'),
+    path('invoice/', views.invoice, name='invoice'),
+    path('geninvoice/', views.generate_invoice, name='generate_invoice'),
 
    
 ]

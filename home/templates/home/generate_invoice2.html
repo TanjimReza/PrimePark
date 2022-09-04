@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="{% static 'assets/custom/style.css' %}">
+         
+</head>
+<body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="logo-img"></div>
+    <div class="container">
+        <div class="forms">
+            
+            <div class="form signup">
+                <span class="title">Invoice Generator</span>
+                 
+                {% if errors is not None %}
+                {{ errors }}
+                {% endif %}
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="input-field">
+                        <input name="days" type="text" placeholder="Days" value="30 Days" required> 
+                        <i class="uil uil-user"></i>
+                    </div>
+                    
+                    
+                    <div class="input-field">
+                        <input name="customer_name" type="text" placeholder="Customer Name" required>
+                        <i class="uil uil-car"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="customer_number" type="text" placeholder="Customer number" required>
+                        <i class="uil uil-phone icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="customer_Address" type="text" placeholder="Customer Address" value="NaN, Dhaka" required>
+                        <i class="uil uil-phone icon"></i>
+                    </div>
+                    
+                    <hr>
+                    {% comment %} Account Details {% endcomment %}
+                    
+                    <div class="input-field">
+                        <input name="account_title" type="text" placeholder="Account Title" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="account_email" type="text" placeholder="Account email" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="account_password" type="text" placeholder="Account password" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="account_profile" type="text" placeholder="Account profile" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="account_pin" type="text" placeholder="Account pin" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="account_expiry" type="text" placeholder="Account expiry" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+
+                    
+                    <div class="input-field">
+                        <input name="account_title" type="text" placeholder="Account Title" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="account_email" type="text" placeholder="Account email" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="account_password" type="text" placeholder="Account password" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="account_profile" type="text" placeholder="Account profile" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="account_pin" type="text" placeholder="Account pin" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="account_expiry" type="text" placeholder="Account expiry" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    
+                    
+
+                    
+                    <div class="input-field">
+                        <input name="phone" type="text" placeholder="Enter your phone number" required>
+                        <i class="uil uil-phone icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input name="password" type="text" class="password" placeholder="Create a password" required>
+                        <i class="uil uil-lock icon"></i>
+                        <i class="uil uil-eye-slash showHidePw"></i>
+                    </div>
+
+                    <div class="user-select">
+                        <select name="is_owner" id="id_is_owner" for = "id_is_owner" required>
+                          <option value="R">Select User Type:</option>
+                          <option value="S">Spot Owner</option>
+                          <option value="R">Spot Rentee</option>
+                          <option value="D">Driver</option>
+                        </select>
+                    </div>
+
+                    <div class="checkbox-text">
+                        <div class="checkbox-content">
+                            <input type="checkbox" id="termCon">
+                            <label for="termCon" class="text">I accept all the terms and conditions</label>
+                        </div>
+                    </div>
+
+                    <div class="input-field button">
+                        <input type="submit" value="Signup">
+                    </div>
+                </form>
+
+                <div class="login-signup">
+                    <span class="text">Already a member?
+                        <a href=" {% url 'login' %} " class="text login-link">Login Now</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'assets/custom/script.js' %}"></script>
+
+</body>
+</html>

@@ -330,3 +330,15 @@ def driverportfolio(request,id=""):
     }
     
     return render(request, 'home/driverportfolio.html',context=context)
+
+
+
+
+def invoice(request):
+    print(request.GET)
+    return render(request, 'home/invoice.html')
+
+def generate_invoice(request):
+    print(request.GET)
+    print(request.POST)
+    return render(request, 'home/generate_invoice.html')
